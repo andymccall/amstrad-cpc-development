@@ -5,10 +5,8 @@
 ### Install sjasmplus
 
 ```
-username@host:~$ git clone https://github.com/z00m128/sjasmplus.git
+username@host:~$ git clone --recursive -j8 https://github.com/z00m128/sjasmplus.git
 username@host:~$ cd sjasmplus
-username@host:~$ git clone https://github.com/vinniefalco/LuaBridge.git
-username@host:~$ make clean
 username@host:~$ make
 username@host:~$ make install PREFIX=~/development/tools/sjasmplus
 ```
