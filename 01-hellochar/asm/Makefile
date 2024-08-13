@@ -2,27 +2,31 @@
 # Makefile Options
 # ----------------------------
 
-Z88DK           = zcc
-Z88DK_FLAGS     = +cpc -create-app -O3 -unsigned -lndos -zorg=16384
+SJASMPLUS       = sjasmplus
+SJASMPLUS_FLAGS = 
+RM              = rm -f
 ZESARUX         = cd ~/development/tools/zesarux && exec ~/development/tools/zesarux/zesarux
 CPCXFS          = cpcxfs
-RM              = rm -f
-DISK			= $(PWD)/bin/HELLOWOR.dsk
+DISK			= $(PWD)/bin/HELLOCHA.dsk
 
 default: all
 
 all:
 	@echo "Building project..."
 	mkdir -p bin
-	$(Z88DK) $(Z88DK_FLAGS) src/main.c -o bin/HELLOWOR.out
-	rm bin/HELLOWOR.out
+	mkdir -p lst
+	mkdir -p sld
+	${SJASMPLUS} ${SJASMPLUS_FLAGS} --fullpath --outprefix=bin/ --lst=lst/hellocha.lst --sld=sld/hellocha.sld src/main.asm
 	@echo "Creating disk..."
 	$(CPCXFS) -f -ns $(DISK)
-	$(CPCXFS) $(DISK) -f -p bin/HELLOWOR.cpc
+	$(CPCXFS) $(DISK) -f -p bin/hellocha.cpc
 
 clean:
 	@echo "Cleaning project..."
 	rm -rf bin
+	rm -rf lst
+	rm -rf sld
+	rm -rf *.bin
 
 run:
 	@echo "Launching emulator..."
